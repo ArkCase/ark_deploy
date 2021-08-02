@@ -1,0 +1,23 @@
+imagePullSecrets: [name: activemq-pull-image]
+
+ports:
+  metrics: 5556
+  console: 8161
+  amqp: 5672
+#  mqtt: 1883
+#  openwire: 61616
+#  websocket: 61614
+#  stomp: 61613
+
+# The persistent volume claim is managed outside this Helm chart. Please set
+# `existingClaim` to the correct value for your deployment.
+persistence:
+  existingClaim: activemq
+  mountPath: /app/data
+  subPath:
+
+# Limit, in GiB, of how big the KahaDB store can grow
+maxStoreUsageGb: 50
+
+# Limit, in GiB, of how much temporary storage ActiveMQ can use
+maxTempUsageGb: 10
