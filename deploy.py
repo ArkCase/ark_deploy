@@ -146,7 +146,7 @@ run("kubectl apply -f namespaces.yaml")
 info("*** Installing/Updating Calico ***")
 run("kubectl apply -f calico.yaml")
 wait_for_pod("calico-node", "kube-system")
-run("kubectl apply -f default-network-policy.yaml")
+run("kubectl -n arkcase apply -f default-network-policy.yaml")
 run("kubectl -n observability apply -f default-network-policy.yaml")
 
 
@@ -233,8 +233,8 @@ else:
     template = Template(data)
     input = template.render(activemq_data_size_GB=cfg['activemq_data_size_GB'])
     run("kubectl -n arkcase apply -f -", input=input)
-# XXX    run("kubectl -n observability apply -f activemq-network-policy.yaml")
-    run("helm upgrade --install -n arkcase -f activemq-values.yaml --set adminPassword=testme activemq arkcase/ark-activemq")
+    run("kubectl -n arkcase apply -f activemq-network-policy.yaml")
+    run("helm upgrade --install -n arkcase -f activemq-values.yaml activemq arkcase/ark-activemq")
     wait_for_pod("activemq", "arkcase")
 
 

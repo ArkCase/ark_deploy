@@ -3,7 +3,7 @@ kind: NetworkPolicy
 metadata:
   name: default-np
   labels:
-    managed-by: setup-cluster.sh
+    managed-by: deploy-script
 spec:
   podSelector: {}  # Select all pods
   policyTypes: [Ingress, Egress]

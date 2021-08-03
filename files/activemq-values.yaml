@@ -12,7 +12,7 @@ ports:
 # The persistent volume claim is managed outside this Helm chart. Please set
 # `existingClaim` to the correct value for your deployment.
 persistence:
-  existingClaim: activemq
+  existingClaim: activemq-pvc
   mountPath: /app/data
   subPath:
 

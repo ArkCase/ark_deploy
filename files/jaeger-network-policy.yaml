@@ -3,7 +3,7 @@ kind: NetworkPolicy
 metadata:
   name: jaeger-operator-np
   labels:
-    managed-by: setup-cluster.sh
+    managed-by: deploy-script
 spec:
   podSelector:
     matchLabels:
@@ -32,7 +32,7 @@ kind: NetworkPolicy
 metadata:
   name: jaeger-np
   labels:
-    managed-by: setup-cluster.sh
+    managed-by: deploy-script
 spec:
   podSelector:
     matchLabels:

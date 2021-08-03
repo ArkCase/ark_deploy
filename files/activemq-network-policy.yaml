@@ -1,30 +1,27 @@
 apiVersion: networking.k8s.io/v1
 kind: NetworkPolicy
 metadata:
-  name: loki-np
+  name: activemq-np
   labels:
     managed-by: deploy-script
 spec:
   podSelector:
     matchLabels:
-      app: loki
-  policyTypes: [Ingress]
+      app: ark-activemq
+  policyTypes: [Ingress, Egress]
 
   ingress:
-    # Allow Promtail to send logs to Loki, and Grafana to read data from Loki
-    - from:
-        - podSelector:
-            matchExpressions:
-              - {key: app, operator: In, values: [promtail, grafana]}
-      ports:
-        - port: 3100
-
     # Allow Prometheus to scrape metrics
     # NB: Istio is merging the main container metrics with the side-car proxy
     #     metrics, and make them available on port 15020.
     - from:
+        - namespaceSelector: {}  # TODO: tighten this up
         - podSelector:
             matchLabels:
               app: prometheus
       ports:
         - port: 15020
+
+    # Allow access to AMQP from any node in the `arkcase` namespace
+    - ports:
+        - port: 5672
