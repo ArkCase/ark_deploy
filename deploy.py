@@ -229,7 +229,7 @@ if cfg['platform'] == "eks":
     sys.exit(1)
 else:
     info("*** Installing/Updating ActiveMQ ***")
-    data = open("activemq-persistent-volume-claim.yaml.j2").read()
+    data = open("activemq-generic-persistent-volume-claim.yaml.j2").read()
     template = Template(data)
     input = template.render(activemq_data_size_GB=cfg['activemq_data_size_GB'])
     run("kubectl -n arkcase apply -f -", input=input)
