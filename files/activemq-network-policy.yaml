@@ -1,0 +1,27 @@
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: activemq-np
+  labels:
+    managed-by: deploy-script
+spec:
+  podSelector:
+    matchLabels:
+      app: ark-activemq
+  policyTypes: [Ingress, Egress]
+
+  ingress:
+    # Allow Prometheus to scrape metrics
+    # NB: Istio is merging the main container metrics with the side-car proxy
+    #     metrics, and make them available on port 15020.
+    - from:
+        - namespaceSelector: {}  # TODO: tighten this up
+        - podSelector:
+            matchLabels:
+              app: prometheus
+      ports:
+        - port: 15020
+
+    # Allow access to AMQP from any node in the `arkcase` namespace
+    - ports:
+        - port: 5672

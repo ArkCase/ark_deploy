@@ -1,0 +1,20 @@
+# This deployment file describes a deployment suitable for a developer's
+# desktop machine
+
+# `platform` is the Kubernetes platform where ArkCase will be deployed. The
+# allowed values are:
+#   - "generic": Generic Kubernetes cluster
+#   - "eks": Elastic Kubernetes Service (AWS), backed by EC2 instances
+platform: generic
+
+# `istio_profile` is the Istio profile, as passed to the `istioctl` command
+istio_profile: demo
+
+# `activemq_chart_version` is the version of our `ark_activemq` Helm chart we
+# want to deploy. Please note this might be the same as the ActiveMQ version
+# itself.
+activemq_chart_version: 0.1.0
+
+# `activemq_data_size_GB` is the size of the data partition for ActiveMQ, in
+# GiB.
+activemq_data_size_GB: 2
